@@ -1,0 +1,28 @@
+body{
+    font-family:Arial, Helvetica, sans-serif,red;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin: 0;
+    background: color #912020;
+}
+.game-container{
+    text-align: center;
+    background:rgb(87, 184, 248);
+    padding:20px;
+    border-radius:10px;
+    box-shadow: 0 0 10px rgba(238, 17, 220, 0.808);
+}
+#guessInput{
+    margin:10px 0;
+    padding:5px;
+    font-size:16px;
+}
+#guessButton,#resetButton{
+    margin:10px;
+    padding:10px,20px;
+    font-size:16px;
+    cursor:pointer;
+
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Library</title>
+  <link rel="stylesheet" href="vlib.css">
+</head>
+<body>
+  <header>
+    <h1>The Infinite Bookshelf</h1>
+    <p>Manage your personal collection of books</p>
+  </header>
+
+  <main>
+    <section id="add-book-section">
+      <h2>Add a New Book</h2>
+      <form id="add-book-form">
+        <input type="text" id="book-title" placeholder="Book Title" required>
+        <input type="text" id="book-author" placeholder="Author" required>
+        <input type="url" id="book-link" placeholder="Book PDF Link (URL)" required>
+        <button type="submit">Add Book</button>
+      </form>
+    </section>
+
+    <section id="library-section">
+      <h2>Your Library</h2>
+      <input type="text" id="search-bar" placeholder="Search by title or author">
+      <div id="book-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Virtual Library. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript to handle adding books and displaying them
+    const addBookForm = document.getElementById('add-book-form');
+    const bookList = document.getElementById('book-list');
+    const searchBar = document.getElementById('search-bar');
+
+    let books = [];
+
+    // Add a new book
+    addBookForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = document.getElementById('book-title').value;
+      const author = document.getElementById('book-author').value;
+      const link = document.getElementById('book-link').value;
+
+      const book = { title, author, link };
+      books.push(book);
+
+      displayBooks();
+      addBookForm.reset();
+    });
+
+    // Display books
+    function displayBooks() {
+      bookList.innerHTML = '';
+      books.forEach((book, index) => {
+        const bookItem = document.createElement('div');
+        bookItem.classList.add('book-item');
+
+        bookItem.innerHTML = `
+          <h3>${book.title}</h3>
+          <p>Author: ${book.author}</p>
+          <a href="${book.link}" target="_blank">Read Book</a>
+          <button onclick="removeBook(${index})">Remove</button>
+        `;
+        bookList.appendChild(bookItem);
+      });
+    }
+
+    // Remove a book
+    function removeBook(index) {
+      books.splice(index, 1);
+      displayBooks();
+    }
+
+    // Search functionality
+    searchBar.addEventListener('input', (event) => {
+      const searchTerm = event.target.value.toLowerCase();
+      const filteredBooks = books.filter(
+        (book) =>
+          book.title.toLowerCase().includes(searchTerm) ||
+          book.author.toLowerCase().includes(searchTerm)
+      );
+
+      bookList.innerHTML = '';
+      filteredBooks.forEach((book) => {
+        const bookItem = document.createElement('div');
+        bookItem.classList.add('book-item');
+
+        bookItem.innerHTML = `
+          <h3>${book.title}</h3>
+          <p>Author: ${book.author}</p>
+          <a href="${book.link}" target="_blank">Read Book</a>
+        `;
+        bookList.appendChild(bookItem);
+      });
+    });
+  </script>
+</body>
+</html>
+
